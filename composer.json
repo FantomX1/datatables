@@ -1,0 +1,9 @@
+{
+  "name": "fantomx1/datatables",
+  "description": "package under development",
+  "autoload": {
+    "psr-4": {
+      "fantomx1\\datatables\\": "."
+    }
+  }
+}
