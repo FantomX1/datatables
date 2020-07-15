@@ -5,5 +5,14 @@
     "psr-4": {
       "fantomx1\\datatables\\": "."
     }
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/FantomX1/viewLocator.git",
+      "type": "git"
+    }
+  ],
+  "require": {
+    "fantomx1/view-locator": "@dev"
   }
 }

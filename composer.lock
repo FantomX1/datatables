@@ -1,0 +1,44 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "3aad19a6f4458101271d46e8d79d8799",
+    "packages": [
+        {
+            "name": "fantomx1/view-locator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FantomX1/viewLocator.git",
+                "reference": "4d9e818ada48baf1ddddfdc12254d07b0672aac5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fantomx1\\": "."
+                }
+            },
+            "authors": [
+                {
+                    "name": "frantisek.hallo",
+                    "email": "fantomx1@gmail.com"
+                }
+            ],
+            "description": "template locator",
+            "time": "2020-07-15T12:02:39+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "fantomx1/view-locator": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
+}
