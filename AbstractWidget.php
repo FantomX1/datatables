@@ -28,11 +28,8 @@ abstract class AbstractWidget
     protected function render($template, array $vars)
     {
 
-        $reflect = new \ReflectionClass($this);
-        $shortname = $reflect->getShortName();
-
         $tl = new ViewLocator();
-        $path = $tl->setViewsDir('../templates')->seek($this);
+        $path = $tl->setViewsDir('./templates')->seek($this);
 
         extract($vars);
         include $path.''.$template.'.php';
