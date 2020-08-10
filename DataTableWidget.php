@@ -7,7 +7,6 @@ namespace fantomx1\datatables;
 use fantomx1\datatables\plugins\queryExecutor\classes\YiiQueryExecutorPlugin;
 use fantomx1\datatables\plugins\queryExecutor\pluginInterface\QueryExecutorPluginInterface;
 use fantomx1\PackagesAssetsSupport;
-use fantomx1\RequestHandler;
 
 /**
  * Class DataTableWidget
@@ -57,7 +56,7 @@ class DataTableWidget extends AbstractWidget
      * @var array
      */
     public $errors = [
-
+        -1 => '"Configured class for a query executor is not a query executor plugin."s'
     ];
 
     /**
@@ -165,21 +164,9 @@ class DataTableWidget extends AbstractWidget
      */
     public function run()
     {
-
-
-
-        $this->setQueryExecutor(
-            function($query) {
-                return \Yii::$app->db->createCommand($query)->queryAll();
-            }
-
-
         $this->initQueryExecutor();
 
-
         $executor = static::$queryExecutor;
-
-
 
         $sql = 'select SQL_CALC_FOUND_ROWS '
                .ltrim(trim(str_replace('SELECT', 'select', $this->query)), 'select');
@@ -254,8 +241,6 @@ class DataTableWidget extends AbstractWidget
 
         $page        = $this->paginator->getPage();
         return $query .= " LIMIT " . ($page - 1) * $onPage . "," . $onPage;
-
-
     }
 
 
