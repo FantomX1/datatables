@@ -30,6 +30,16 @@ class PaginatorWidget extends AbstractWidget
     }
 
 
+    /**
+     * @return string
+     */
+    protected function getViewsDir()
+    {
+        return $this->getDefaultViewsDir("./templates/DataTable");
+    }
+
+
+
 //    public function setData($data)
 //    {
 //

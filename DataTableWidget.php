@@ -4,6 +4,9 @@
 namespace fantomx1\datatables;
 
 
+use fantomx1\PackagesAssetsSupport;
+use fantomx1\RequestHandler;
+
 class DataTableWidget extends AbstractWidget
 {
 
@@ -12,20 +15,28 @@ class DataTableWidget extends AbstractWidget
     private $query;
     private $name;
     private $columnsDefinition;
+    
+    public $config;
 
 
     public function __construct()
     {
 
+        $config = [
+            'flags' => [
+                'allFilterable' => false
+            ]
+        ];
+
+        $this->config = new ConfigObject($config);
 
         // var_dump(debug_backtrace());
 
         $caller =  debug_backtrace()[1];
         $this->name =$caller['class'] .' '.$caller['function'];
-
-
-
     }
+
+
 
     public function setQueryExecutor(callable $queryExecutor)
     {
@@ -39,7 +50,7 @@ class DataTableWidget extends AbstractWidget
     public function setName($name)
     {
         $this->name = $name;
-        
+
     }
 
 
@@ -57,7 +68,7 @@ class DataTableWidget extends AbstractWidget
         // a ked nie parametre, tak vlastny, data objekt a na ten link, ale niekde treba, akoze pure function,
         // ak nie data objekt, tak pole, ale toto je zaroven plain old, co aj naplnita  oddelenie kvazi este nezistene
         // od kreslenia, toboz logiky adat
-        
+
     }
 
     public function getName()
@@ -117,6 +128,7 @@ class DataTableWidget extends AbstractWidget
         $sessionSort = &$_SESSION[$this->getName()."_sortBy"] ?? [];
 
         if (isset($_GET['sortBy']) &&
+            // if request for sorting and there is no definition or the requested column is allowed to be sorted
             (empty($this->columnsDefinition) ||
              !empty($this->columnsDefinition[$_GET['sortBy']]['orderable'])
             )
@@ -149,17 +161,7 @@ class DataTableWidget extends AbstractWidget
         if (!empty($sessionSort)) {
 
             $this->query .= " ORDER BY ".$sessionSort['column'].' '.$sessionSort['dir'];
-
-
         }
-
-
-
-
-
-
-
-
 
         $query = $this->addLimitClause($paginator, $this->query);
 
@@ -174,6 +176,8 @@ class DataTableWidget extends AbstractWidget
 //            ]
 //        );
 
+        $assetsHandler = new PackagesAssetsSupport();
+
         $header = $data[0] ?? [];
         $this->render(
             "index",
@@ -182,7 +186,10 @@ class DataTableWidget extends AbstractWidget
                 'data' => $data,
                 'count' => $count,
                 'paginator' => $paginator,
-                'columnsDefinition' => $this->columnsDefinition
+                'columnsDefinition' => $this->columnsDefinition,
+                'assetsHandler' => $assetsHandler,
+                'rootDir' => __DIR__,
+                'config' => $this->config
             ]
         );
 
@@ -192,7 +199,10 @@ class DataTableWidget extends AbstractWidget
     /**
      * @param PaginatorWidget $paginator
      */
-    private function addLimitClause(PaginatorWidget $paginator, $query)
+    private function addLimitClause(
+        PaginatorWidget $paginator,
+        $query
+    )
     {
         $onPage = $paginator->getOnPage();
 
