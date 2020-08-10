@@ -1,12 +1,14 @@
 <?php
 
 
-namespace fantomx1\datatables;
+namespace fantomx1\datatables\widgets;
 
 
+use fantomx1\datatables\components\ConfigObject;
 use fantomx1\datatables\components\ErrorObject;
 use fantomx1\datatables\components\IniObject;
 use fantomx1\datatables\components\QueryBuilder;
+use fantomx1\datatables\components\SignalHandlers;
 use fantomx1\datatables\plugins\queryExecutor\classes\YiiQueryExecutorPlugin;
 use fantomx1\datatables\plugins\queryExecutor\pluginInterface\QueryExecutorPluginInterface;
 use fantomx1\PackagesAssetsSupport;

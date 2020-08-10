@@ -1,9 +1,10 @@
 <?php
 
 
-namespace fantomx1\datatables;
+namespace fantomx1\datatables\widgets;
 
 
+use fantomx1\datatables\widgets\AbstractWidget;
 use fantomx1\iohandlers\handlers\GetHandler;
 use fantomx1\iohandlers\handlers\SessionHandler;
 
@@ -65,7 +66,8 @@ class PaginatorWidget extends AbstractWidget
      */
     protected function getViewsDir()
     {
-        return $this->getDefaultViewsDir("./templates/DataTable");
+        return parent::getViewsDir().'/DataTable';
+        //return $this->getDefaultViewsDir("../templates/DataTable");
     }
 
 

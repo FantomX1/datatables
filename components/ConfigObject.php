@@ -1,7 +1,7 @@
 <?php
 
 
-namespace fantomx1\datatables;
+namespace fantomx1\datatables\components;
 
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace fantomx1\datatables;
+namespace fantomx1\datatables\widgets;
 
 
 use fantomx1\datatables\plugins\queryExecutor\pluginInterface\QueryExecutorPluginInterface;
@@ -68,7 +68,7 @@ abstract class AbstractWidget
      */
     protected function getViewsDir()
     {
-        return $this->getDefaultViewsDir("./templates");
+        return $this->getDefaultViewsDir("../templates");
     }
 
     /**

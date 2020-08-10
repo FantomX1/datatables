@@ -4,7 +4,9 @@
 namespace fantomx1\datatables\components;
 
 
-use fantomx1\datatables\PaginatorWidget;
+
+
+use fantomx1\datatables\widgets\PaginatorWidget;
 
 /**
  * Class QueryBuilder
@@ -41,8 +43,10 @@ class QueryBuilder
      * @param $query
      * @return string
      */
-    public function addLimitClause(PaginatorWidget $paginator,
-                                   $query)
+    public function addLimitClause(
+        PaginatorWidget $paginator,
+       $query
+    )
     {
 
         $onPage = $paginator->getOnPage();
