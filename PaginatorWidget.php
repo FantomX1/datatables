@@ -4,27 +4,55 @@
 namespace fantomx1\datatables;
 
 
+use fantomx1\iohandlers\handlers\GetHandler;
+use fantomx1\iohandlers\handlers\SessionHandler;
+
+/**
+ * Class PaginatorWidget
+ * @package fantomx1\datatables
+ */
 class PaginatorWidget extends AbstractWidget
 {
 
-    // @TODO: iohandlers
+    /**
+     * @var
+     */
     private $data;
 
+    /**
+     * @var array
+     */
     private $perPageSettings =
         [
           1, 2, 3, 5, 10
         ];
 
 
+    /**
+     * @var int
+     */
     private $onPage = 1;
 
+    /**
+     * @var int
+     */
     private $page = 1;
 
+    /**
+     * @var
+     */
     private $totalPages;
 
+    /**
+     * @var
+     */
     private $parent;
 
 
+    /**
+     * PaginatorWidget constructor.
+     * @param $parent
+     */
     public function __construct($parent)
     {
 
@@ -49,16 +77,16 @@ class PaginatorWidget extends AbstractWidget
 //    }
 
 
+    /**
+     * @return mixed|void
+     */
     public function run()
     {
-
-
         // $this->data['perPageSettings']  =$this->perPageSettings;
 
         $this->render("index",
             $this->dataToTemplate()
         );
-
     }
 
 
@@ -73,25 +101,24 @@ class PaginatorWidget extends AbstractWidget
 //
 //    }
 
+    /**
+     * @return array
+     */
     private function dataToTemplate()
     {
-
         return [
-            'pages' => $this->totalPages,
+            'pages'           => $this->totalPages,
             'perPageSettings' => $this->perPageSettings,
-            'onPage' => $this->onPage,
-            'page' => $this->page
+            'onPage'          => $this->onPage,
+            'page'            => $this->page
         ];
 
     }
 
 
-
-
-
-
-
-
+    /**
+     * @param $nbRecords
+     */
     public function calculatePagination($nbRecords)
     {
 
@@ -99,31 +126,34 @@ class PaginatorWidget extends AbstractWidget
 
         $maxPages = ceil($nbRecords / $onPage);
 
-        if (isset($_GET['page']) AND $_GET['page'] <= $maxPages) {
-            $this->page = intval($_GET['page']);
+        $gpage = GetHandler::get('page');
+
+        if ($gpage AND $gpage<= $maxPages) {
+            $this->page = intval($gpage);
         }
 
         $this->totalPages = $maxPages;
     }
 
 
+    /**
+     * @return int|mixed
+     */
     private function changeOnPageEventHook()
     {
-
-
         $name = $this->parent->getName();
 
-
-
-
-        if (isset($_GET['onPage'])) {
-            $_SESSION[$name.'_onPage']  = intval($_GET['onPage']);
+        $gOnpage = GetHandler::get('onPage');
+        if ($gOnpage) {
+            //$_SESSION[$name.'_onPage']  = intval($gOnpage);
+            SessionHandler::set($name.'_onPage', intval($gOnpage));
         }
 
+        $sOnpage = SessionHandler::get($name.'_onPage');
 
-        if (isset($_SESSION[$name.'_onPage'])) {
+        if ($sOnpage) {
 
-            $this->onPage = $_SESSION[$name.'_onPage'];
+            $this->onPage = $sOnpage;
         }
 
         return $this->onPage;
@@ -131,13 +161,18 @@ class PaginatorWidget extends AbstractWidget
     }
 
 
-
+    /**
+     * @return int
+     */
     public function getOnPage()
     {
         return $this->onPage;
 
     }
 
+    /**
+     * @return int
+     */
     public function getPage()
     {
         return $this->page;
@@ -145,6 +180,9 @@ class PaginatorWidget extends AbstractWidget
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getTotalPages()
     {
         return $this->totalPages;

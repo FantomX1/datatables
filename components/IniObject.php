@@ -7,6 +7,13 @@ namespace fantomx1\datatables\components;
 use fantomx1\datatables\DataTableWidget;
 
 /**
+ * usage from outside
+ *    $articleTableWidget = new DataTableWidget();
+ *    $articleTableWidget->_assoc_ini->setIni(
+ *    $articleTableWidget->_assoc_ini::INI_QUERY_EXECUTOR,
+ *    YiiQueryExecutorPlugin::class
+ * );
+ *
  * Class IniObject
  * @package fantomx1\datatables\components
  */
