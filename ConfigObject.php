@@ -11,10 +11,9 @@ namespace fantomx1\datatables;
 class ConfigObject
 {
 
-    /**
-     * @var
-     */
-    public $config;
+
+
+    public static $config;
 
     /**
      * ConfigObject constructor.
@@ -23,6 +22,11 @@ class ConfigObject
     public function __construct($config)
     {
         $this->config = $config;
+    }
+
+    public static function setConfig($config)
+    {
+        static::$config = $config;
     }
 
 
