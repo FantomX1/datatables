@@ -56,7 +56,7 @@ class DataTableWidget extends AbstractWidget
      * @var array
      */
     public $errors = [
-        -1 => '"Configured class for a query executor is not a query executor plugin."s'
+        -1 => 'Configured class for a query executor is not a query executor plugin.'
     ];
 
     /**
