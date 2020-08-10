@@ -12,7 +12,7 @@ window = prefix
 
 5) common hidden always, not different variables and processing for values and keys that
 what contains keys that handles, all send same and handled by keys
-
+RequestHandler::get('sdasda');
 
 6) make javascript, but get some data prior for testing
 
@@ -27,3 +27,7 @@ plugins
 global config to set param ini set not only method, however if passed object into it or classname
 
 9) signal handlers
+
+10) error class and input adapters
+
+11) a emit default queryExecutor warning
