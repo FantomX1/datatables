@@ -6,6 +6,8 @@ namespace fantomx1\datatables;
 
 class PaginatorWidget extends AbstractWidget
 {
+
+    // @TODO: iohandlers
     private $data;
 
     private $perPageSettings =

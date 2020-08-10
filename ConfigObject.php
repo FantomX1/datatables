@@ -12,8 +12,12 @@ class ConfigObject
 {
 
 
+    private $backRef = DataTableWidget::class;
 
-    public static $config;
+    /**
+     * @var
+     */
+    public $config;
 
     /**
      * ConfigObject constructor.
@@ -22,11 +26,6 @@ class ConfigObject
     public function __construct($config)
     {
         $this->config = $config;
-    }
-
-    public static function setConfig($config)
-    {
-        static::$config = $config;
     }
 
 

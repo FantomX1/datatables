@@ -4,6 +4,9 @@
 namespace fantomx1\datatables;
 
 
+use fantomx1\datatables\components\ErrorObject;
+use fantomx1\datatables\components\IniObject;
+use fantomx1\datatables\components\QueryBuilder;
 use fantomx1\datatables\plugins\queryExecutor\classes\YiiQueryExecutorPlugin;
 use fantomx1\datatables\plugins\queryExecutor\pluginInterface\QueryExecutorPluginInterface;
 use fantomx1\PackagesAssetsSupport;
@@ -15,28 +18,7 @@ use fantomx1\PackagesAssetsSupport;
 class DataTableWidget extends AbstractWidget
 {
 
-    private $queryExecutor ;
-    private $paginator;
 
-    /**
-     * @var
-     */
-    private static $ini;
-
-    /**
-     *
-     */
-    const INI_QUERY_EXECUTOR = 1;
-
-
-    /**
-     * @var
-     */
-    private static $queryExecutor ;
-    /**
-     * @var
-     */
-    private $query;
     /**
      * @var string
      */
@@ -49,15 +31,13 @@ class DataTableWidget extends AbstractWidget
     /**
      * @var ConfigObject
      */
-    public $config;
-
+    public $_assoc_config;
 
     /**
-     * @var array
+     * @var IniObject
      */
-    public $errors = [
-        -1 => 'Configured class for a query executor is not a query executor plugin.'
-    ];
+    public $_assoc_ini;
+
 
     /**
      * DataTableWidget constructor.
@@ -65,18 +45,20 @@ class DataTableWidget extends AbstractWidget
     public function __construct()
     {
 
+        $this->_assoc_ini = new IniObject();
+
         $config = [
             'flags' => [
                 'allFilterable' => false
             ]
         ];
 
-        $this->config = new ConfigObject($config);
+        $this->_assoc_config = new ConfigObject($config);
 
         // var_dump(debug_backtrace());
 
-        $caller =  debug_backtrace()[1];
-        $this->name =$caller['class'] .' '.$caller['function'];
+        $caller = debug_backtrace()[1];
+        $this->name = $caller['class'] .' '.$caller['function'];
     }
 
 
@@ -90,73 +72,6 @@ class DataTableWidget extends AbstractWidget
         static::$ini[$initItem] = $value;
     }
 
-    /**
-     * @param QueryExecutorPluginInterface $queryExecutor
-     */
-    public static function setQueryExecutor(QueryExecutorPluginInterface $queryExecutor)
-    {
-
-        static::$queryExecutor = $queryExecutor;
-
-    }
-
-
-    /**
-     * @param $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-    }
-
-
-    /**
-     * @param array $definition
-     */
-    public function setColumnsDefinition(array $definition)
-    {
-
-        $this->columnsDefinition = $definition;
-
-    }
-
-    /**
-     * @param $query
-     */
-    public function setQuery($query)
-    {
-
-        $this->query = $query;
-        // a ked nie parametre, tak vlastny, data objekt a na ten link, ale niekde treba, akoze pure function,
-        // ak nie data objekt, tak pole, ale toto je zaroven plain old, co aj naplnita  oddelenie kvazi este nezistene
-        // od kreslenia, toboz logiky adat
-
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-
-    /**
-     * @param $code
-     * @return mixed
-     * @throws \Exception
-     */
-    public function errorTranslate($code)
-    {
-
-        if (!isset($this->errors[$code])) {
-            throw new \Exception("No error defined with a code ".$code);
-        }
-
-        return $this->errors[$code];
-    }
 
     /**
      * @return mixed|void
@@ -166,29 +81,16 @@ class DataTableWidget extends AbstractWidget
     {
         $this->initQueryExecutor();
 
-        $executor = static::$queryExecutor;
+        $executor = static::$assoc_queryExecutor;
 
-        $sql = 'select SQL_CALC_FOUND_ROWS '
-               .ltrim(trim(str_replace('SELECT', 'select', $this->query)), 'select');
-
+        $queryBuilder = new QueryBuilder();
+        $sql = $queryBuilder->buildCountQuery($this->query);
 
         // 1st execute to find count
         $executor->execute($sql);
 
-
         $count = $executor->execute("SELECT FOUND_ROWS()");
 
-
-        var_dump($count);
-
-
-        //        $paginator = new PaginatorWidget();
-//        $paginator->setData(
-//             [
-////                'pages' => $totalPages,
-////                'page' => $page
-//            ]
-//        );
 
         $this->paginator = $paginator = new PaginatorWidget($this);
         $paginator->calculatePagination($count[0]['FOUND_ROWS()']);
@@ -196,16 +98,18 @@ class DataTableWidget extends AbstractWidget
 
         // if isset columns definition && !isset isset($_SESSION[$this->getName()."_sortBy"]['column'])
 
-        SignalHandlers::$name = $this->getName();
-        SignalHandlers::$columnsDefinition = $this->columnsDefinition;
-        $sessionSort = SignalHandlers::sortEventSignalListener();
+        $sh = new SignalHandlers();
+        $sh->setName($this->getName())
+            ->setColumnsDefinition($this->columnsDefinition);
+
+        $sessionSort = $sh->sortSignalEventListener();
 
         if (!empty($sessionSort)) {
-
-            $this->query .= " ORDER BY " . $sessionSort['column'] . ' ' . $sessionSort['dir'];
+            $this->query .= $queryBuilder->orderByClause($sessionSort);
         }
 
-        $query = $this->addLimitClause($paginator, $this->query);
+        //$query = $this->addLimitClause($paginator, $this->query);
+        $query = $queryBuilder->addLimitClause($paginator, $this->query);
 
         $data = $executor->execute($query);
 
@@ -222,45 +126,36 @@ class DataTableWidget extends AbstractWidget
                 'columnsDefinition' => $this->columnsDefinition,
                 'assetsHandler'     => $assetsHandler,
                 'rootDir'           => __DIR__,
-                'config'            => $this->config
+                'config'            => $this->_assoc_config
             ]
         );
-
-
     }
-
-    /**
-     * @param PaginatorWidget $paginator
-     */
-    private function addLimitClause(
-        PaginatorWidget $paginator,
-        $query
-    )
-    {
-        $onPage = $paginator->getOnPage();
-
-        $page        = $this->paginator->getPage();
-        return $query .= " LIMIT " . ($page - 1) * $onPage . "," . $onPage;
-    }
-
-
 
     /**
      * @throws \Exception
      */
     private function initQueryExecutor(): void
     {
-        if (isset(static::$ini[static::INI_QUERY_EXECUTOR])) {
+        // @TODO: two asterisks, maybe even var name not necessary
+        /** @var \fantomx1\datatables\components\IniObject $assoc_ini */
 
-            static::$queryExecutor = new static::$ini[static::INI_QUERY_EXECUTOR]();
+        $assoc_ini = $this->_assoc_ini;
 
-            if (!is_a(static::$queryExecutor, QueryExecutorPluginInterface::class)) {
-                throw new \Exception($this->errorTranslate(-1), -1);
+
+        if ($iniQueryExec = $assoc_ini->getIni(IniObject::INI_QUERY_EXECUTOR)) {
+
+            static::$assoc_queryExecutor = new $iniQueryExec();
+
+            if (!is_a(static::$assoc_queryExecutor, QueryExecutorPluginInterface::class)) {
+                throw new \Exception(
+                    ErrorObject::errorTranslate(ErrorObject::ERROR_MIN1),
+                    ErrorObject::ERROR_MIN1
+                );
             }
 
         }
 
-        if (!static::$queryExecutor) {
+        if (!static::$assoc_queryExecutor) {
             // @TODO: emmit some warning of not being set, or being a default in GUI
             static::setQueryExecutor(
                 new YiiQueryExecutorPlugin()

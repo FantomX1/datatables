@@ -59,8 +59,6 @@ abstract class AbstractWidget
     abstract function run();
 
 
-
-
     /**
      * protected function getViewsDir()
      * {

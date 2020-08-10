@@ -30,4 +30,6 @@ global config to set param ini set not only method, however if passed object int
 
 10) error class and input adapters
 
-11) a emit default queryExecutor warning
+11) a emit default  warning
+
+12) paginator io handlers

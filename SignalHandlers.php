@@ -17,23 +17,60 @@ class SignalHandlers
     /**
      * @var
      */
-    public static $name;
+    public  $name;
     /**
      * @var
      */
-    public static $columnsDefinition;
+    public  $columnsDefinition;
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColumnsDefinition()
+    {
+        return $this->columnsDefinition;
+
+    }
+
+    /**
+     * @param mixed $columnsDefinition
+     */
+    public  function setColumnsDefinition($columnsDefinition)
+    {
+        $this->columnsDefinition = $columnsDefinition;
+        return $this;
+    }
 
 
     /**
      * @param array $sessionSort
      * @return array|mixed
      */
-    public static function sortEventSignalListener()
+    public  function sortSignalEventListener()
     {
         // @TODO: get from some common session storage class handler
-        //$sessionSort = &$_SESSION[static::$name. "_sortBy"] ?? [];
+        //$sessionSort = &$_SESSION[::$name. "_sortBy"] ?? [];
 
-        $sessionSort = SessionHandler::get(static::$name. "_sortBy",[]);
+        $sessionSort = SessionHandler::get($this->name. "_sortBy",[]);
 
 //        RequestHandler::get('sdasda');
 
@@ -41,8 +78,8 @@ class SignalHandlers
         $getSortBy = GetHandler::get('sortBy');
         if (GetHandler::get('sortBy')
             && // if request for sorting and there is no definition or the requested column is allowed to be sorted
-            (empty(static::$columnsDefinition)
-             || !empty(static::$columnsDefinition[$getSortBy]['orderable'])
+            (empty($this->columnsDefinition)
+             || !empty($this->columnsDefinition[$getSortBy]['orderable'])
             )
         ) {
 
@@ -63,7 +100,7 @@ class SignalHandlers
             }
         }
 
-        SessionHandler::set(static::$name. "_sortBy", $sessionSort);
+        SessionHandler::set($this->name. "_sortBy", $sessionSort);
 
         return $sessionSort;
     }
