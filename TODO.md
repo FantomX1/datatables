@@ -1,5 +1,5 @@
 2) config object passable pure, and setters method on it, passable for others,
-not for that object decisions inside - passable, not an attribute
+not for that object decisions inside - passable, not an attribute - done
 
 
 4) passing identifier only for form, not get values, still not at the same time, or in own
@@ -31,3 +31,5 @@ global config to set param ini set not only method, however if passed object int
 11) a emit default  warning not passed query executer
 
 12) paginator io handlers - done
+
+13) todo add various PDOS
