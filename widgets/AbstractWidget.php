@@ -98,10 +98,7 @@ abstract class AbstractWidget
     {
 
         $this->query = $query;
-        // a ked nie parametre, tak vlastny, data objekt a na ten link, ale niekde treba, akoze pure function,
-        // ak nie data objekt, tak pole, ale toto je zaroven plain old, co aj naplnita  oddelenie kvazi este nezistene
-        // od kreslenia, toboz logiky adat
-
+        // @TODO: consider separate data-object, not so necessary currently
     }
 
     /**

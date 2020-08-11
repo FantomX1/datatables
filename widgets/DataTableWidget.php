@@ -65,15 +65,6 @@ class DataTableWidget extends AbstractWidget
 
 
 
-    /**
-     * @param $initItem
-     * @param $value
-     */
-    public static function setIni($initItem, $value)
-    {
-        static::$ini[$initItem] = $value;
-    }
-
 
     /**
      * @return mixed|void
