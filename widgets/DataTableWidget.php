@@ -135,6 +135,7 @@ class DataTableWidget extends AbstractWidget
         $assoc_ini = $this->_assoc_ini;
 
 
+        // if is object configured, passed via  a ini setting association object
         if ($iniQueryExec = $assoc_ini->getIni(IniObject::INI_QUERY_EXECUTOR)) {
 
             static::$assoc_queryExecutor = new $iniQueryExec();
@@ -148,6 +149,9 @@ class DataTableWidget extends AbstractWidget
 
         }
 
+        // fallback to Yii query executor plugin, @TODO: add support not only framework-specifically,
+        // but also database specifically for non-framework users, eg for those using pdo, or various db system
+        // or just a simple callable closure for that case
         if (!static::$assoc_queryExecutor) {
             // @TODO: emmit some warning of not being set, or being a default in GUI
             static::setQueryExecutor(
