@@ -32,8 +32,11 @@ global config to set param ini set not only method, however if passed object int
 
 12) paginator io handlers - done
 
-13) todo add various PDOS = // fallback to Yii query executor plugin, @TODO: add support not only framework-specifically,
+13) todo add various PDOs = // fallback to Yii query executor plugin, @TODO: add support not only framework-specifically,
                                     // but also database specifically for non-framework users, eg for those using pdo, or various db system
                                     // or just a simple callable closure for that case
 
 14) make command to ask interativelly for a webDir document root path
+
+15) consider web directories being always above vendor dir, not to supply path in a relative format, perhaps just except of a few
+special scenarios like assets/document-root being in completely different folders than the project itself, check for the absolute path too
