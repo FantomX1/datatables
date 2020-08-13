@@ -7,7 +7,7 @@ install the library's assets as follows (it utilizes package fantomx1/packages-a
 ### Installing this library's assets
 execute this command
 ```
-cd vendor/fantomx1/datatables && php vendor/fantomx1/packagesAssetsSupport/initAssets.php -w=../../../backend/web -o=assets
+cd vendor/fantomx1/datatables && php ../../../vendor/fantomx1/packagesAssetsSupport/initAssets.php -w=../../../backend/web -o=assets
 ```
 where the -w is the relative path to the documentRoot/webDir directory, where to position the assets
 (Note: later can be added functionality of the command asking interactively for the documentRoot location, plus hooking
