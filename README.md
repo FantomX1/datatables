@@ -1,6 +1,8 @@
 # datatables
 generic framework-agnostic composer installable data-tables
 
+after installing this library via ``` composer install fantomx1/datatables  ```
+install the library's assets as follows (it utilizes package fantomx1/packages-assets-support for the operation) 
 
 ### Installing this library's assets
 execute this command
