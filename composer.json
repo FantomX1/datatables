@@ -13,6 +13,8 @@
     }
   ],
   "require": {
-    "fantomx1/view-locator": "@dev"
+    "fantomx1/view-locator": "@dev",
+    "components/jqueryui": "^1.12",
+    "components/jquery": "^3.5"
   }
 }

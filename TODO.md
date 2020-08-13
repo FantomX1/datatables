@@ -36,3 +36,4 @@ global config to set param ini set not only method, however if passed object int
                                     // but also database specifically for non-framework users, eg for those using pdo, or various db system
                                     // or just a simple callable closure for that case
 
+14) make command to ask interativelly for a webDir document root path
