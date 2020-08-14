@@ -46,11 +46,7 @@ foreach ($header as $columnName => $column) {
 
     <script>
 
-        <?php
 
-            $helpers = $assetsHandler->getAssetsDir("", '').'/assets/js/helpers.js';
-
-         ?>
 
         // !window.myFunction
         // would not found, the below getScript doesn't seem to be found in global scope but should be
@@ -60,22 +56,22 @@ foreach ($header as $columnName => $column) {
         //     alert('dsad');
         // }
 
-        $(document).ready(function () {
-                //alert('xzx');
-                $.getScript('<?php echo $helpers ?>', function () {
-                    if (typeof regSelectComboWidgetHandlers != "undefined") {
-                        regSelectComboWidgetHandlers();
-                    } else {
-                        // alert('none')
-                    }
-                    ;
-                });
-
-
-                //window.myFunction();
-                //myFunction();
-            }
-        );
+        //$(document).ready(function () {
+        //        //alert('xzx');
+        //        $.getScript('<?php //echo  $assetsHandler->getAssetsDir("", '').'/assets/js/helpers.js' ?>//', function () {
+        //            if (typeof regSelectComboWidgetHandlers != "undefined") {
+        //                regSelectComboWidgetHandlers();
+        //            } else {
+        //                // alert('none')
+        //            }
+        //            ;
+        //        });
+        //
+        //
+        //        //window.myFunction();
+        //        //myFunction();
+        //    }
+        //);
 
 
 
@@ -96,29 +92,19 @@ foreach ($header as $columnName => $column) {
                 //reg();
             </script>
 
-            <input type="text" readonly data-column="<?php echo $columnName; ?>" class="filter" >
-            <input type="text" readonly data-column="<?php echo $columnName; ?>" class="filterHidden disabled" name="filter[ids][<?php echo $columnName; ?>]" size=10
-            style="visibility: hidden"
-            >
-
-            <br>
-
-            <div style="position: relative">
-                <select size=4" multiple=1
-                        style="visibility:hidden; position: absolute; top: 0px"
-                        name="selectSubmenu"
-                        data-column="<?php echo $columnName; ?>"
-                        class="filterSelect"
-                >
-                    <option value="1">aaa</option>
-                     <option value="2">bbb</option>
-                    <option value=3>  ccc</option>
-                </select>
-            </div>
-
-            <input type="hidden" name="filter" class="select">
-
     <?php
+
+            //(new \fantomx1\datatables\customWidgets\selectFilterWidget\SelectFilterWidget())
+            (new \fantomx1\lightweightUntypableCombobox\lightweightUntypableCombobox())
+                ->run(
+                        $columnName,
+                        [
+                            '1' => 'aaa',
+                            '2' => 'bbb',
+                            '3' => 'ccc',
+                        ],
+                    "filter"
+                );
         }
     ?>
 
