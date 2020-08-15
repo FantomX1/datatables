@@ -11,10 +11,13 @@
       "url": "https://github.com/FantomX1/viewLocator.git",
       "type": "git"
     }
+
   ],
   "require": {
     "fantomx1/view-locator": "@dev",
     "components/jqueryui": "^1.12",
-    "components/jquery": "^3.5"
+    "components/jquery": "^3.5",
+    "fantomx1/lightweight-untypable-combobox": "@dev",
+    "fantomx1/packages-assets-support": "@dev"
   }
 }

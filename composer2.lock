@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32c15321ea0263946b604086988ca04a",
+    "content-hash": "ba646cedb219d6a27c4b8249951bef9c",
     "packages": [
         {
             "name": "components/jquery",
@@ -134,6 +134,81 @@
             "time": "2016-09-16T05:47:55+00:00"
         },
         {
+            "name": "fantomx1/cli-parameters-parser",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../../fantomx1/CliParametersParser",
+                "reference": "21cf2f432e3b82cbf31e13c48117bfebf9231f90"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fantomx1\\": "."
+                }
+            },
+            "authors": [
+                {
+                    "name": "frantisek.hallo",
+                    "email": "fantomx1@gmail.com"
+                }
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "fantomx1/lightweight-untypable-combobox",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../../fantomx1/lightweightUntypableCombobox",
+                "reference": "da5d7056273cf338b4c5c12ba5c510c045efd9b5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fantomx1\\lightweightUntypableCombobox\\": "."
+                }
+            },
+            "authors": [
+                {
+                    "name": "frantisek.hallo",
+                    "email": "fantomx1@gmail.com"
+                }
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "fantomx1/packages-assets-support",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../../fantomx1/packagesAssetsSupport",
+                "reference": "3acd1a225a7cb43476893e9a9236b489c2de8fc5"
+            },
+            "require": {
+                "fantomx1/cli-parameters-parser": "@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fantomx1\\": "."
+                }
+            },
+            "authors": [
+                {
+                    "name": "frantisek.hallo",
+                    "email": "fantomx1@gmail.com"
+                }
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "fantomx1/view-locator",
             "version": "dev-master",
             "source": {
@@ -161,7 +236,10 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fantomx1/view-locator": 20
+        "fantomx1/view-locator": 20,
+        "fantomx1/lightweight-untypable-combobox": 20,
+        "fantomx1/cli-parameters-parser": 20,
+        "fantomx1/packages-assets-support": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
