@@ -1,5 +1,5 @@
 {
-  "name": "fantomx1/datatables",
+  "name": "fantomx1/datatabless",
   "description": "package under development",
   "autoload": {
     "psr-4": {
@@ -10,6 +10,18 @@
     {
       "url": "https://github.com/FantomX1/viewLocator.git",
       "type": "git"
+    },
+    {
+      "type": "path",
+      "url": "../../fantomx1/lightweightUntypableCombobox"
+    },
+    {
+      "type": "path",
+      "url": "../../fantomx1/packagesAssetsSupport"
+    },
+    {
+      "type": "path",
+      "url": "../../fantomx1/CliParametersParser"
     }
 
   ],

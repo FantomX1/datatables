@@ -10,7 +10,7 @@
 
 </style>
 
-
+<form>
 <table class="datatable" border="1">
 
 
@@ -111,9 +111,6 @@
                     </td>
 
                     <?php
-
-
-
                 }
 
 
@@ -136,6 +133,8 @@
 
 
 </table>
+
+</form>
 
 <?php
 

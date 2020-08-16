@@ -96,6 +96,7 @@ foreach ($header as $columnName => $column) {
 
             //(new \fantomx1\datatables\customWidgets\selectFilterWidget\SelectFilterWidget())
             (new \fantomx1\lightweightUntypableCombobox\lightweightUntypableCombobox())
+                ->appendCustomHtml('<input type=submit value="send" name="doFilter" class="button">')
                 ->run(
                         $columnName,
                         [
