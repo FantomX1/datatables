@@ -10,20 +10,7 @@
     {
       "url": "https://github.com/FantomX1/viewLocator.git",
       "type": "git"
-    },
-    {
-      "type": "path",
-      "url": "../../fantomx1/lightweightUntypableCombobox"
-    },
-    {
-      "type": "path",
-      "url": "../../fantomx1/packagesAssetsSupport"
-    },
-    {
-      "type": "path",
-      "url": "../../fantomx1/CliParametersParser"
     }
-
   ],
   "require": {
     "fantomx1/view-locator": "@dev",
