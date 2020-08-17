@@ -14,12 +14,32 @@ where the **-w option** stands for the relative path to the documentRoot/webDir 
 on composer post-install
 )
 
+## Example:
+
+![Showcase](datatablesExample.gif)
 
 ## Usage:
 (with columnsDefinitions builder) - really nothing else anymore, and the table is fully functional sortable, filterable
 
 ```
 
+        $articleTableWidget = new DataTableWidget();
+
+        // will be needed also at column
+        $articleTableWidget->_assoc_ini->setIni(
+            $articleTableWidget->_assoc_ini::INI_QUERY_EXECUTOR,
+            YiiQueryExecutorPlugin::class
+        );
+
+        $articleTableWidget->init();
+
+        $articleTableWidget->setQuery("
+            SELECT
+                a.*
+                ac.title as category_id,
+            FROM article a
+            JOIN article_category ac ON a.category_id = ac.id  
+        ");
 
         $articleTableWidget->setColumnsDefinition(
                 $articleTableWidget->column('category_id')
@@ -72,6 +92,9 @@ on composer post-install
                     ->setOrderable()
             ]
         );
+
+        // perhaps passed to some view
+        $articleTableWidget->run();
 
 ```
 
