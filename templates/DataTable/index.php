@@ -20,7 +20,11 @@
 
 
 
-        foreach ($header as $columnName => $colum) {
+        foreach ($header as $columnName => $column) {
+
+            if (strpos($columnName,'_')===0) {
+                continue;
+            }
 
             ?>
 
@@ -29,37 +33,35 @@
             <?php
 
             $showLink = empty($columnsDefinition) ||
-            !empty($columnsDefinition[$columnName]->orderable ?? '');
+            !empty($columnsDefinition[$columnName]->orderable);
+            // !empty($columnsDefinition[$columnName]->orderable ?? '');
 
-                $link = '<a href="?sortBy='.$columnName.'">'.$columnName.'</a>';
 
+
+                $name = $columnName;
+
+
+                // maybe not only undefined index not even definiton as isset
+                if (!empty($columnsDefinition[$columnName]->caption )) {
+                    $name = $columnsDefinition[$columnName]->caption;
+                }
+
+                $link = '<a href="?sortBy='.$columnName.'">'.$name.'</a>';
 
 
                 if ($showLink) {
-
                     echo $link;
-
                 } else {
-
-
-                    echo $columnName;
-
-
+                    echo $name;
                 }
-
-
             ?>
             </th>
 
             <?php
 
-
-
         }
 
         ?>
-
-
     </tr>
 
 

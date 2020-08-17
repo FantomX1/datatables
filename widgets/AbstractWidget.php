@@ -18,9 +18,9 @@ abstract class AbstractWidget
     use ViewLocatorRenderTrait;
 
     /**
-     * @var
+     * @var QueryExecutorPluginInterface
      */
-    protected static $assoc_queryExecutor ;
+    public static $assoc_queryExecutor ;
 
     /**
      * @var

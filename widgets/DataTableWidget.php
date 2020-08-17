@@ -24,12 +24,11 @@ class DataTableWidget extends AbstractWidget
 
     /**
      * @var string
+     * @TODO: WIP
+     * protected static $signalIdentifier = "dd_";
      */
-    private $name;
-    /**
-     * @var
-     */
-    private $columnsDefinition;
+
+    // ==================================================================================================
 
     /**
      * @var ConfigObject
@@ -62,7 +61,22 @@ class DataTableWidget extends AbstractWidget
     }
 
 
+    /**
+     * must be called, otherwise the executor won't be available
+     * @throws \Exception
+     */
+    public function init()
+    {
+        // two ways of setting, therefore dont get the executor via set/init method 'initQueryExecutor' (since also static set avaialble)
+        // ini settings for static, could be static, albeit not addressed transitively, but if transits through
+        // multiple objects
+        $this->initQueryExecutor();
 
+
+        // pre call common ini stuff used in at least 2 different methods, run vs column, ensure sometimes its logged if this not called
+        // will fail on accessing it
+        // how to ensure it is called though just after ini settings, or is it a common logic
+    }
 
     /**
      * @return mixed|void
@@ -70,11 +84,10 @@ class DataTableWidget extends AbstractWidget
      */
     public function run()
     {
-        $this->initQueryExecutor();
 
         $executor = static::$assoc_queryExecutor;
 
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($this->_assoc_config);
         $sql = $queryBuilder->buildCountQuery($this->query);
 
         // 1st execute to find count
@@ -97,6 +110,10 @@ class DataTableWidget extends AbstractWidget
 
         $filter = $sh->filterSignalEventListener();
 
+        if (!empty($filter)) {
+            $this->query .= $queryBuilder->filterClause($filter);
+        }
+
         if (!empty($sessionSort)) {
             $this->query .= $queryBuilder->orderByClause($sessionSort);
         }
@@ -106,10 +123,14 @@ class DataTableWidget extends AbstractWidget
 
         $data = $executor->execute($query);
 
+        // workaround for empty result having still the full number of selected columns
+        $headerQuery =  "SELECT * , count(*) as _count from (".$query.") a";
+        $header  = $executor->execute($headerQuery);
+        $header = $header[0];
+
         // @TODO: pass extended class render method on the background
         $assetsHandler = new PackagesAssetsSupport();
 
-        $header = $data[0] ?? [];
 
         $config = $this->_assoc_config->getConfig();
 
@@ -135,7 +156,7 @@ class DataTableWidget extends AbstractWidget
     /**
      * @throws \Exception
      */
-    private function initQueryExecutor(): void
+    public function initQueryExecutor(): void
     {
         // @TODO: two asterisks, maybe even var name not necessary
         /** @var \fantomx1\datatables\components\IniObject $assoc_ini */

@@ -40,44 +40,17 @@
 //for debug
 echo '';
 
+
+// @TODO: add common iterator collection to always list the common number without _prefix and
+// the same number of cells in data if the header would have different number of items eg count col, etc
+// even when it is omitted
 foreach ($header as $columnName => $column) {
 
+    if (strpos($columnName,'_') === 0) {
+        continue;
+    }
+
     ?>
-
-    <script>
-
-
-
-        // !window.myFunction
-        // would not found, the below getScript doesn't seem to be found in global scope but should be
-        // anyway browsers alone handle not duplicated functions or they are not because of not being in global scope
-        // and the function has singleton call check
-        // if (typeof myFunction=="undefined") {
-        //     alert('dsad');
-        // }
-
-        //$(document).ready(function () {
-        //        //alert('xzx');
-        //        $.getScript('<?php //echo  $assetsHandler->getAssetsDir("", '').'/assets/js/helpers.js' ?>//', function () {
-        //            if (typeof regSelectComboWidgetHandlers != "undefined") {
-        //                regSelectComboWidgetHandlers();
-        //            } else {
-        //                // alert('none')
-        //            }
-        //            ;
-        //        });
-        //
-        //
-        //        //window.myFunction();
-        //        //myFunction();
-        //    }
-        //);
-
-
-
-
-    </script>
-
 
     <th>
         <?php
@@ -87,32 +60,57 @@ foreach ($header as $columnName => $column) {
         if (!empty($columnsDefinition[$columnName]->filter) || $config->getAllFilterable()) {
             //for debug
             echo '';
+
+
+
+            switch ($columnsDefinition[$columnName]->filter->type) {
+
+
+                case 'select':
+
     ?>
-            <script>
-                //reg();
-            </script>
+
 
     <?php
 
-            $filterName = $filterConf['filterField']['name'];
-            $idsField = $filterConf['filterField']['ids'];
-            $valuesField = $filterConf['filterField']['values'];
+                    $filterName  = $filterConf['filterField']['name'];
+                    $idsField    = $filterConf['filterField']['ids'];
+                    $valuesField = $filterConf['filterField']['values'];
 
-            //(new \fantomx1\datatables\customWidgets\selectFilterWidget\SelectFilterWidget())
-            (new \fantomx1\lightweightUntypableCombobox\lightweightUntypableCombobox())
-                ->appendCustomHtml('<input type=submit value="filter" name="doFilter" class="button">')
-                ->run(
-                        $columnName,
-                        [
-                            '1' => 'aaa',
-                            '2' => 'bbb',
-                            '3' => 'ccc',
-                        ],
-//                    "filter",
-                    $filterName,
-                        $filterConf['filtering'][$valuesField][$columnName] ?? '',
-                    $filterConf['filtering'][$idsField][$columnName] ?? ''
-                );
+                    //(new \fantomx1\datatables\customWidgets\selectFilterWidget\SelectFilterWidget())
+                    (new \fantomx1\lightweightUntypableCombobox\lightweightUntypableCombobox())
+                        ->appendCustomHtml('<input type=submit value="filter" name="doFilter" class="button">')
+                        ->run(
+                                $columnName,
+                                $columnsDefinition[$columnName]->filter->getData()
+                                ,
+        //                    "filter",
+                            $filterName,
+                                $filterConf['filtering'][$valuesField][$columnName] ?? '',
+                            $filterConf['filtering'][$idsField][$columnName] ?? ''
+                        );
+
+                    break;
+
+
+                case 'text':
+
+
+                    // @TODO:
+                    ?>
+
+                    <input type="text">
+
+                    <?php
+
+
+                    break;
+            }
+
+
+
+
+
         }
     ?>
 

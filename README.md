@@ -15,5 +15,66 @@ on composer post-install
 )
 
 
+## Usage:
+(with columnsDefinitions builder) - really nothing else anymore, and the table is fully functional sortable, filterable
+
+```
+
+
+        $articleTableWidget->setColumnsDefinition(
+                $articleTableWidget->column('category_id')
+                    ->setFilter()
+                        ->setTypeSelect()
+                        ->setDataQuery(
+                            "article_category",
+                            "id",
+                            "title"
+                        )->getFilter()
+                    ->setCaption('Category')
+                    ->setOrderable()
+            ],
+            [
+                $articleTableWidget->column('slug')
+                    ->setFilter()
+                        ->setTypeSelect()
+                        ->setData(
+                            [
+                                '1'=>'aaa',
+                                '2'=>'bbb',
+                                '3'=>'ccc'
+                            ]
+                        )->getFilter()
+                    //->setCaption('aaa')
+                    ->setOrderable()
+            ,
+                $articleTableWidget->column('id')
+                    ->setFilter()
+                        ->setTypeText()
+//                        ->setData(
+//                            [
+//                                '1'=>'aaa',
+//                                '2'=>'bbb',
+//                                '3'=>'cccc'
+//                            ])
+                        ->getFilter()
+                    //->setCaption('bbb')
+                    ->setOrderable()
+            ,
+                $articleTableWidget->column('category_id')
+                    ->setFilter()
+                        ->setTypeSelect()
+                        ->setDataQuery(
+                            "article_category",
+                            "id",
+                            "title"
+                        )->getFilter()
+                    ->setCaption('Category')
+                    ->setOrderable()
+            ]
+        );
+
+```
+
+
 <b>Roadmap:</b>
 https://trello.com/b/7wwQRgNq/fantomx1-datatablesbacklog

@@ -51,3 +51,8 @@ special scenarios like assets/document-root being in completely different folder
 19) filter only for some
 
 20) default sort by
+
+21) custom columns post-processing
+
+22) adjust/parametrize getQueryForList mechanism for soft-deleted and other way restricted items
++setRunChecked calling run and column with checks for queryExecutor being initialised
