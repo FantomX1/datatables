@@ -56,3 +56,5 @@ special scenarios like assets/document-root being in completely different folder
 
 22) adjust/parametrize getQueryForList mechanism for soft-deleted and other way restricted items
 +setRunChecked calling run and column with checks for queryExecutor being initialised
+
+23) in directory examples to see straight from the shelf it's usage and appearance in practice
