@@ -66,3 +66,5 @@ special scenarios like assets/document-root being in completely different folder
 26) ajax support
 
 27) faster gif after optimisation
+
+28) pure text filter
