@@ -124,7 +124,7 @@ class DataTableWidget extends AbstractWidget
         $data = $executor->execute($query);
 
         // workaround for empty result having still the full number of selected columns
-        $headerQuery =  "SELECT * , count(*) as _count from (".$query.") a";
+        $headerQuery =  "SELECT * , count(*) as _count from (".$query." LIMIT 1) a";
         $header  = $executor->execute($headerQuery);
         $header = $header[0];
 
