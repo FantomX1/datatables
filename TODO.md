@@ -62,3 +62,7 @@ special scenarios like assets/document-root being in completely different folder
 24) order by the order of definitions
 
 25) sort non-query data, eg text by php sort algorithms
+
+26) ajax support
+
+27) faster gif after optimisation
