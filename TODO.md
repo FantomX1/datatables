@@ -58,3 +58,7 @@ special scenarios like assets/document-root being in completely different folder
 +setRunChecked calling run and column with checks for queryExecutor being initialised
 
 23) in directory examples to see straight from the shelf it's usage and appearance in practice
+
+24) order by the order of definitions
+
+25) sort non-query data, eg text by php sort algorithms
