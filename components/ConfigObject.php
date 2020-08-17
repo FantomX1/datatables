@@ -19,13 +19,39 @@ class ConfigObject
      */
     public $config;
 
+
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
     /**
      * ConfigObject constructor.
      * @param $config
      */
-    public function __construct($config)
+    public function __construct()
     {
+     //   $this->config = $config;
+    }
+
+
+    public function setDefaults()
+    {
+
+        $config = [
+            'flags' => [
+                'allFilterable' => false
+            ],
+            'filterField'=>
+                [
+                    'name'=>'f',
+                    'ids'=>'i',
+                    'values'=>'v',
+                ]
+        ];
+
         $this->config = $config;
+
     }
 
 

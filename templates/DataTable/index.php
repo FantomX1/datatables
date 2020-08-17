@@ -29,7 +29,7 @@
             <?php
 
             $showLink = empty($columnsDefinition) ||
-            !empty($columnsDefinition[$columnName]['orderable'] ?? '');
+            !empty($columnsDefinition[$columnName]->orderable ?? '');
 
                 $link = '<a href="?sortBy='.$columnName.'">'.$columnName.'</a>';
 
@@ -70,7 +70,7 @@
 
             $enableFilter = false;
             foreach($columnsDefinition as $column) {
-                if (!empty($column['filter'])) {
+                if (!empty($column->filter)) {
                     $enableFilter = true;
                 }
             }

@@ -4,6 +4,7 @@
 namespace fantomx1\datatables\widgets;
 
 
+use fantomx1\datatables\components\definitionsAssembler\Column;
 use fantomx1\datatables\plugins\queryExecutor\pluginInterface\QueryExecutorPluginInterface;
 use fantomx1\ViewLocator;
 use fantomx1\ViewLocatorRenderTrait;
@@ -80,6 +81,15 @@ abstract class AbstractWidget
 
     }
 
+    public function column($name)
+    {
+        $column = new Column();
+        $column->setName($name);
+
+
+        return $column;
+    }
+
 
     /**
      * @param array $definition
@@ -87,7 +97,13 @@ abstract class AbstractWidget
     public function setColumnsDefinition(array $definition)
     {
 
-        $this->columnsDefinition = $definition;
+        $defIndexed=[];
+        foreach ($definition as $k=>$def) {
+            /** @var Column $def */
+            $defIndexed[$def->getName()] = $def;
+        }
+
+        $this->columnsDefinition = $defIndexed;
 
     }
 

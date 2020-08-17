@@ -24,6 +24,15 @@ class SignalHandlers
     public  $columnsDefinition;
 
 
+    public $config;
+
+
+    public function __construct(ConfigObject $config)
+    {
+        $this->config = $config;
+    }
+
+
 
     /**
      * @return mixed
@@ -61,6 +70,40 @@ class SignalHandlers
     }
 
 
+    public function filterSignalEventListener()
+    {
+
+        $config = $this->config->getConfig();
+
+//        'filterField'=>
+//                [
+//                    'name'=>'f',
+//                    'ids'=>'i',
+//                    'values'=>'v',
+//                ]
+
+
+        $filter = SessionHandler::get($this->name. "_filter",[]);
+
+        $filterVar = $config['filterField']['name'];
+//        $filterIds = $config['filterField']['ids'];
+//        $filterValues = $config['filterField']['values'];
+
+        //$filterVar = $filterName.'['.$filterName.']';
+
+        if (
+            GetHandler::get($filterVar)
+        ) {
+
+            $filter  = GetHandler::get($filterVar);
+            SessionHandler::set($this->name. "_filter", $filter);
+        }
+
+        return $filter;
+
+    }
+
+
     /**
      * @param array $sessionSort
      * @return array|mixed
@@ -79,7 +122,8 @@ class SignalHandlers
         if (GetHandler::get('sortBy')
             && // if request for sorting and there is no definition or the requested column is allowed to be sorted
             (empty($this->columnsDefinition)
-             || !empty($this->columnsDefinition[$getSortBy]['orderable'])
+             || !empty($this->columnsDefinition[$getSortBy]->orderable)
+                // @TODO: dont' order all/implicitly when empty
             )
         ) {
 
@@ -98,9 +142,11 @@ class SignalHandlers
                 $sessionSort['dir']    = "ASC";
 
             }
+
+            SessionHandler::set($this->name. "_sortBy", $sessionSort);
         }
 
-        SessionHandler::set($this->name. "_sortBy", $sessionSort);
+
 
         return $sessionSort;
     }

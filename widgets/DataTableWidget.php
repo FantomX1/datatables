@@ -4,6 +4,7 @@
 namespace fantomx1\datatables\widgets;
 
 
+use fantomx1\datatables\components\definitionsAssembler\Column;
 use fantomx1\datatables\components\ConfigObject;
 use fantomx1\datatables\components\ErrorObject;
 use fantomx1\datatables\components\IniObject;
@@ -49,13 +50,10 @@ class DataTableWidget extends AbstractWidget
 
         $this->_assoc_ini = new IniObject();
 
-        $config = [
-            'flags' => [
-                'allFilterable' => false
-            ]
-        ];
 
-        $this->_assoc_config = new ConfigObject($config);
+        $this->_assoc_config = new ConfigObject();
+
+        $this->_assoc_config->setDefaults();
 
         // var_dump(debug_backtrace());
 
@@ -91,11 +89,13 @@ class DataTableWidget extends AbstractWidget
 
         // if isset columns definition && !isset isset($_SESSION[$this->getName()."_sortBy"]['column'])
 
-        $sh = new SignalHandlers();
+        $sh = new SignalHandlers($this->_assoc_config);
         $sh->setName($this->getName())
             ->setColumnsDefinition($this->columnsDefinition);
 
         $sessionSort = $sh->sortSignalEventListener();
+
+        $filter = $sh->filterSignalEventListener();
 
         if (!empty($sessionSort)) {
             $this->query .= $queryBuilder->orderByClause($sessionSort);
@@ -106,9 +106,13 @@ class DataTableWidget extends AbstractWidget
 
         $data = $executor->execute($query);
 
+        // @TODO: pass extended class render method on the background
         $assetsHandler = new PackagesAssetsSupport();
 
         $header = $data[0] ?? [];
+
+        $config = $this->_assoc_config->getConfig();
+
         $this->render(
             "index",
             [
@@ -119,7 +123,11 @@ class DataTableWidget extends AbstractWidget
                 'columnsDefinition' => $this->columnsDefinition,
                 'assetsHandler'     => $assetsHandler,
                 'rootDir'           => __DIR__,
-                'config'            => $this->_assoc_config
+                'config'            => $this->_assoc_config,
+                'filterConf'        => [
+                    'filtering' => $filter,
+                    'filterField' => $config['filterField']
+                ]
             ]
         );
     }

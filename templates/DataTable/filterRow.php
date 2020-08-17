@@ -84,7 +84,7 @@ foreach ($header as $columnName => $column) {
         /**
          * @var ConfigObject $config
          */
-        if (isset($columnsDefinition[$columnName]['filter']) || $config->getAllFilterable()) {
+        if (!empty($columnsDefinition[$columnName]->filter) || $config->getAllFilterable()) {
             //for debug
             echo '';
     ?>
@@ -93,6 +93,10 @@ foreach ($header as $columnName => $column) {
             </script>
 
     <?php
+
+            $filterName = $filterConf['filterField']['name'];
+            $idsField = $filterConf['filterField']['ids'];
+            $valuesField = $filterConf['filterField']['values'];
 
             //(new \fantomx1\datatables\customWidgets\selectFilterWidget\SelectFilterWidget())
             (new \fantomx1\lightweightUntypableCombobox\lightweightUntypableCombobox())
@@ -104,7 +108,10 @@ foreach ($header as $columnName => $column) {
                             '2' => 'bbb',
                             '3' => 'ccc',
                         ],
-                    "filter"
+//                    "filter",
+                    $filterName,
+                        $filterConf['filtering'][$valuesField][$columnName] ?? '',
+                    $filterConf['filtering'][$idsField][$columnName] ?? ''
                 );
         }
     ?>

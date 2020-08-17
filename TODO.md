@@ -40,3 +40,14 @@ global config to set param ini set not only method, however if passed object int
 
 15) consider web directories being always above vendor dir, not to supply path in a relative format, perhaps just except of a few
 special scenarios like assets/document-root being in completely different folders than the project itself, check for the absolute path too
+
+
+16)  @TODO: dont' order all/implicitly when empty
+
+17) selected from prefilled values
+
+18) a filter get & order after order in session?
+
+19) filter only for some
+
+20) default sort by
