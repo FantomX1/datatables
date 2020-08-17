@@ -42,6 +42,7 @@ on composer post-install
         ");
 
         $articleTableWidget->setColumnsDefinition(
+            [
                 $articleTableWidget->column('category_id')
                     ->setFilter()
                         ->setTypeSelect()
@@ -51,9 +52,7 @@ on composer post-install
                             "title"
                         )->getFilter()
                     ->setCaption('Category')
-                    ->setOrderable()
-            ],
-            [
+                    ->setOrderable(),
                 $articleTableWidget->column('slug')
                     ->setFilter()
                         ->setTypeSelect()
@@ -65,8 +64,7 @@ on composer post-install
                             ]
                         )->getFilter()
                     //->setCaption('aaa')
-                    ->setOrderable()
-            ,
+                    ->setOrderable(),
                 $articleTableWidget->column('id')
                     ->setFilter()
                         ->setTypeText()
@@ -79,25 +77,12 @@ on composer post-install
                         ->getFilter()
                     //->setCaption('bbb')
                     ->setOrderable()
-            ,
-                $articleTableWidget->column('category_id')
-                    ->setFilter()
-                        ->setTypeSelect()
-                        ->setDataQuery(
-                            "article_category",
-                            "id",
-                            "title"
-                        )->getFilter()
-                    ->setCaption('Category')
-                    ->setOrderable()
             ]
         );
 
         // perhaps passed to some view
         $articleTableWidget->run();
-
 ```
-
 
 <b>Roadmap:</b>
 https://trello.com/b/7wwQRgNq/fantomx1-datatablesbacklog
