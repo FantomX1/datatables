@@ -13,19 +13,7 @@
 ?>
 
 
-<script type="text/javascript" src="<?php
 
-//echo $assetsHandler->getAssetsDir($rootDir, '') . '/assets/js/kokot.js'; ?>">
-
-</script>
-
-
-<script type="text/javascript" src="<?php echo $assetsHandler->getAssetsDir("", 'components/jquery').'/jquery.js'; ?>">
-</script>
-
-
-<script type="text/javascript" src="<?php echo $assetsHandler->getAssetsDir("", 'components/jqueryui').'/jquery-ui.js'; ?>">
-</script>
 
 
 <!--<script type="text/javascript" src="--><?php //echo $assetsHandler->getAssetsDir("", '').'/assets/js/helpers.js'; ?><!--">-->

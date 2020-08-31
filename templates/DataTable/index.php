@@ -4,6 +4,16 @@
 ?>
 
 
+
+
+<script type="text/javascript" src="<?php echo $assetsHandler->getAssetsDir("", 'components/jquery').'/jquery.js'; ?>">
+</script>
+
+
+<script type="text/javascript" src="<?php echo $assetsHandler->getAssetsDir("", 'components/jqueryui').'/jquery-ui.js'; ?>">
+</script>
+
+
 <style>
 
     table.datatable th, td {padding: 5px}
