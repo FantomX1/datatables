@@ -9,6 +9,9 @@ use fantomx1\datatables\widgets\DataTableWidget;
 use  Doctrine\DBAL\Connection;
 
 /**
+ *
+ * For Symfony, register this class as a Symfony service
+ *
  * Class SymfonyQueryExecutorPlugin
  * @package fantomx1\datatables\plugins\queryExecutor\classes
  */
