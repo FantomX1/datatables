@@ -16,7 +16,8 @@
     "fantomx1/view-locator": "@dev",
     "components/jqueryui": "^1.12",
     "components/jquery": "^3.5",
-    "fantomx1/lightweight-untypable-combobox": "@dev",
-    "fantomx1/packages-assets-support": "@dev"
+    "fantomx1/lightweight-untypable-combobox": "1.0",
+    "fantomx1/packages-assets-supports": "1.0",
+    "fantomx1/iohandlers": "1.0"
   }
 }

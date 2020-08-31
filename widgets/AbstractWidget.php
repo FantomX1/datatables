@@ -15,7 +15,7 @@ use fantomx1\ViewLocatorRenderTrait;
  */
 abstract class AbstractWidget
 {
-    use ViewLocatorRenderTrait;
+    use \fantomx1\ViewLocatorRenderTrait;
 
     /**
      * @var QueryExecutorPluginInterface
@@ -38,10 +38,7 @@ abstract class AbstractWidget
     /**
      * @var
      */
-    protected $columnsDefinition;
-
-
-
+    protected $columnsDefinition = [];
 
     /**
      * @param QueryExecutorPluginInterface $queryExecutor
