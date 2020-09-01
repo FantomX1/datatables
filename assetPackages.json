@@ -1,6 +1,8 @@
 {
   "packages": [
     "components/jqueryui",
-    "components/jquery"
+    "components/jquery",
+    "twbs/bootstrap",
+    "rsportella/popper:dev-master"
   ]
 }
