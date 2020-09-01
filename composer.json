@@ -17,7 +17,8 @@
     "components/jqueryui": "^1.12",
     "components/jquery": "^3.5",
     "fantomx1/lightweight-untypable-combobox": "1.0",
-    "fantomx1/packages-assets-supports": "1.0",
-    "fantomx1/iohandlers": "1.0"
+    "fantomx1/iohandlers": "1.0",
+    "fantomx1/packages-assets-support": "999",
+    "twbs/bootstrap": "^4.5"
   }
 }

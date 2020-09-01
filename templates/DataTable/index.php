@@ -14,6 +14,13 @@
 </script>
 
 
+<script type="text/javascript" src="<?php echo $assetsHandler->getAssetsDir("", 'twbs/bootstrap').'/dist/js/bootstrap.bundle.js'; ?>">
+</script>
+
+
+<link rel="stylesheet" href="<?php echo $assetsHandler->getAssetsDir("", 'twbs/bootstrap').'/dist/css/bootstrap.css'; ?>">
+
+
 <style>
 
     table.datatable th, td {padding: 5px}
