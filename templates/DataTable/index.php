@@ -14,6 +14,10 @@
 </script>
 
 
+<?Php
+
+// bootstrap.bundle contains popper.js
+?>
 <script type="text/javascript" src="<?php echo $assetsHandler->getAssetsDir("", 'twbs/bootstrap').'/dist/js/bootstrap.bundle.js'; ?>">
 </script>
 
